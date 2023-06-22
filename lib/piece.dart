@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 import 'values.dart';
 
 class Piece {
@@ -5,6 +7,10 @@ class Piece {
   Piece({required this.type});
 
   List<int> position = [];
+  //方块的颜色,不正常就显示白色
+  Color get color {
+    return tetrominoColors[type] ?? const Color(0xFFFFFFFF);
+  }
 
   void initializePiece() {
     switch (type) {
@@ -38,7 +44,6 @@ class Piece {
           -25,
           -14,
           -15,
-          
         ];
         break;
       case Tetromino.S:
@@ -48,7 +53,7 @@ class Piece {
           -14,
           -15,
         ];
-        break;   
+        break;
 
       case Tetromino.Z:
         position = [
@@ -57,7 +62,7 @@ class Piece {
           -13,
           -12,
         ];
-          break; 
+        break;
       case Tetromino.T:
         position = [
           -24,
@@ -65,8 +70,8 @@ class Piece {
           -13,
           -4,
         ];
-        break;    
-         
+        break;
+
       default:
         break;
     }

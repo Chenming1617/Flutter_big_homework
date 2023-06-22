@@ -110,19 +110,30 @@ class _GameBoardState extends State<GameBoard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey,
-      body: GridView.builder(
+      backgroundColor: Colors.black,
+      body: Column(
+        children: [
+          GridView.builder(
         itemCount: rowLength * colLength,
         physics: const NeverScrollableScrollPhysics(),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: rowLength),
         itemBuilder: (context, index) {
+          int row = (index / rowLength).floor();
+          int col = index % rowLength;
           if (currentPiece.position.contains(index)) {
             return Pixel(
-              color: Colors.yellow,
+              color: currentPiece.color,
               child: index,
             );
-          } else {
+          }
+          //到底的方块
+          else if (gameBoard[row][col] != null) {
+            final Tetromino? tetrominoType = gameBoard[row][col];
+            return Pixel(color: tetrominoColors[tetrominoType], child: '');
+          } 
+          
+          else {
             return Pixel(
               color: Colors.grey[900],
               child: index,
@@ -130,6 +141,8 @@ class _GameBoardState extends State<GameBoard> {
           }
         },
       ),
+        ],
+      )
     );
   }
 }
